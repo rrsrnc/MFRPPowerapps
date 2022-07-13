@@ -1,0 +1,9 @@
+1. To check length of rows in monthly report template
+length(body('List_rows_present_in_a_table')?['value']) is greater than 0
+
+2. To get the current month for report name
+formatDateTime(utcNow(),'MMM')
+
+3. To filter data of current month only
+
+Created ge 'concat(utcNow('yyyy-MM'),'-01T00:00:00')'

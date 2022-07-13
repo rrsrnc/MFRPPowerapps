@@ -1,0 +1,31 @@
+1. Product list Validation
+
+If(IsBlank(DataCardValue2.Text),
+    Notify("Product Id needed",NotificationType.Error),
+    IsBlank(DataCardValue3.Text),
+    Notify("Product Name can't be blank",NotificationType.Error),
+    IsBlank(DataCardValue4.Text),
+    Notify("Please enter product unit price",NotificationType.Error),
+    IsBlank(DataCardValue5.SelectedDate),
+    Notify("Please select product expiry date",NotificationType.Error),
+    IsBlank(DataCardValue6.Selected),
+    Notify("Please select product type",NotificationType.Error),
+    SubmitForm(SharePointForm1)
+)
+   
+2. Numbers not allowed in Product Name
+
+Coalesce(
+    Parent.Error,
+    If(
+        !IsBlank(DataCardValue3.Text) && !IsMatch(
+            DataCardValue3.Text,
+            "[a-zA-Z\s]+"
+        ),
+        "Only letters are allowed"
+    )
+)
+
+3. Disabling Save button on product name validation error
+
+If(!IsBlank(ErrorMessage3.Text),DisplayMode.Disabled,DisplayMode.Edit)

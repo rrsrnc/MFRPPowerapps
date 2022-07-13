@@ -1,0 +1,23 @@
+
+1. Customer List validation
+
+If(IsBlank(DataCardValue2.Text),
+    Notify("Customer Id needed",NotificationType.Error),
+    IsBlank(DataCardValue3.Text),
+    Notify("Customer Name can't be blank",NotificationType.Error),
+    IsBlank(DataCardValue4.Text),
+    Notify("Please enter customer email-id",NotificationType.Error),
+    If(!IsMatch(DataCardValue4.Text,Match.Email),
+     Notify("Please enter email-id in correct format",NotificationType.Error),
+    SubmitForm(SharePointForm1)
+    )
+)
+
+2. Numbers not allowed in customer name
+
+Coalesce(Parent.Error,If(!IsBlank(DataCardValue3.Text) && !IsMatch(DataCardValue3.Text,"[a-zA-Z\s]+"),
+        "only letters are allowed")) 
+
+3. Disabling save button on customer name validtion error
+
+If(!IsBlank(ErrorMessage3.Text),DisplayMode.Disabled,DisplayMode.Edit)
